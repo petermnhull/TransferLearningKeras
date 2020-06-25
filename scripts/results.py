@@ -3,6 +3,7 @@ import pandas as pd
 
 def plot_history(df):
     # Accuracy
+    plt.figure(figsize = (10, 5))
     plt.plot(df['accuracy'])
     plt.plot(df['val_accuracy'])
     plt.title('Model Accuracy')
@@ -12,6 +13,7 @@ def plot_history(df):
     plt.savefig('accuracy.png', bbox_inches = 'tight')
 
     # Loss
+    plt.figure(figsize = (10, 5))
     plt.plot(df['loss'])
     plt.plot(df['val_loss'])
     plt.title('Model Loss')
