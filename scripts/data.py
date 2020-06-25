@@ -37,6 +37,13 @@ def get_data():
 
     return
 
+def load_data():
+    X_train = np.load(PATH_TRAIN + '.npy') / 255
+    y_train = np.load(PATH_TRAIN + '_labels.npy') / 255
+    X_test = np.load(PATH_TEST + '.npy') / 255
+    y_test = np.load(PATH_TEST + '_labels.npy') / 255
+    return X_train, y_train, X_test, y_test
+
 def main():
     get_data()
     return

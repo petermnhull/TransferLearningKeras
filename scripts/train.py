@@ -1,11 +1,10 @@
 import tensorflow as tf
-import numpy as np
 from model import MyModel
 from keras.optimizers import Adam
 import os
+from data import load_data
 
 tf.keras.backend.set_floatx('float64')
-
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 BATCH_SIZE = 64
@@ -14,11 +13,6 @@ IMAGE_SHAPE = (224, 224, 3)
 
 SHOW_HISTORY = True
 SAVE_MODEL = True
-
-def get_training_data():
-    X_train = np.load('training_set.npy') / 255
-    y_train = np.load('training_set_labels.npy') / 255
-    return X_train, y_train
 
 def get_trained_model(X_train, y_train):
     model = MyModel()
@@ -36,38 +30,18 @@ def get_trained_model(X_train, y_train):
         )
     return model, history
 
-def show_history(history):
-    # Print all information
-    print(history.history.keys())
-    
-    # Accuracy
-    plt.plot(history.history['accuracy'])
-    plt.plot(history.history['val_accuracy'])
-    plt.title('Model Accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Validation'], loc='upper left')
-    plt.show()
-
-    # Loss
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model Loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Validation'], loc = 'upper left')
-    plt.show()
-    return
-
 def main():
-    X_train, y_train = get_training_data()
+    X_train, y_train, _, _ = load_data()
     model, history = get_trained_model(X_train, y_train)
 
     if SAVE_MODEL:
         model.save('trained_model', save_format = 'tf')
 
-    if SHOW_HISTORY:
-        show_history(history)
+    # Save history
+    df = pd.DataFrame(history.history)
+    csv_file = 'history.csv'
+    with open(csv_file, mode = 'w') as f:
+        df.to_csv(f)
 
     return
 
