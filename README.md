@@ -1,2 +1,2 @@
 # TransferLearningKeras
-Using Keras library for Transfer Learning.
+Exploring transfer learning concepts and object-oriented design in Keras.
