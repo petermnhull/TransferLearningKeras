@@ -39,4 +39,8 @@ def get_data():
 
     return
 
-get_data()
+def main():
+    get_data()
+    return
+
+main()
