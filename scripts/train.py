@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-from tqdm.keras import TqdmCallback
 from model import MyModel
 from keras.optimizers import Adam
 import os
@@ -40,7 +39,7 @@ def get_trained_model(X_train, y_train):
 def show_history(history):
     # Print all information
     print(history.history.keys())
-
+    
     # Accuracy
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
