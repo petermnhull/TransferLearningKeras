@@ -1,15 +1,21 @@
 import tensorflow as tf
-from keras.models import Model
-from keras.applications import MobileNet
-from keras.applications.mobilenet import preprocess_input
-from keras.layers import Dense
+from keras.layers import Dense, Input
 from keras.callbacks import ModelCheckpoint, TensorBoard
 import os
 import pathlib
 import numpy as np
 
+from model import NewModel
+
 dir = os.path.dirname(__file__)
 
-BATCH_SIZE = 32
-NUM_CLASSES = 2
-EPOCHS = 10
+X_train = np.load('train_set.npy')
+y_train = np.load('train_set_labels.npy')
+
+model = NewModel()
+model.build((1, 224, 224, 3))
+model.freeze_weights()
+model.summary()
+model.compile(optimizer = 'Adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+
+#model.fit(X_train, y_train)
