@@ -17,5 +17,4 @@ model.build((1, 224, 224, 3))
 model.freeze_weights()
 model.summary()
 model.compile(optimizer = 'Adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
-
-#model.fit(X_train, y_train)
+model.fit(X_train, y_train, batch_size = 32)

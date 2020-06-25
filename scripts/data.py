@@ -5,12 +5,10 @@ from pathlib import Path
 import cv2
 
 dir = os.path.dirname(__file__)
-PATH_TRAIN = 'train_set'
+PATH_TRAIN = 'training_set'
 PATH_TEST = 'test_set'
 
-BATCH_SIZE = 32
 NUM_CLASSES = 2
-EPOCHS = 10
 IMAGE_SHAPE = (224, 224, 3)
 CLASS_NAMES = ['dogs', 'cats']
 
@@ -43,4 +41,5 @@ def main():
     get_data()
     return
 
-main()
+if __name__ == "__main__":
+    main()
