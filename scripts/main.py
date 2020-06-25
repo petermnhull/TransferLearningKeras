@@ -1,10 +1,6 @@
 import tensorflow as tf
 from keras.models import load_model
-import os
-import pathlib
 import numpy as np
-
-dir = os.path.dirname(__file__)
 
 def get_test_data():
     X_test = np.load('test_set.npy') / 255
