@@ -9,7 +9,7 @@ def plot_history(df):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc = 'upper left')
-    plt.show()
+    plt.savefig('accuracy.png', bbox_inches = 'tight')
 
     # Loss
     plt.plot(df['loss'])
@@ -18,12 +18,11 @@ def plot_history(df):
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc = 'upper left')
-    plt.show()
+    plt.savefig('loss.png', bbox_inches = 'tight')
     return
 
 def main():
     df = pd.read_csv("history.csv")
-    print(df)
     plot_history(df)
     return
 

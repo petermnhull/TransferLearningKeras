@@ -1,18 +1,19 @@
 import tensorflow as tf
 from model import MyModel
 from keras.optimizers import Adam
+import pandas as pd
 import os
 from data import load_data
 
-tf.keras.backend.set_floatx('float64')
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 BATCH_SIZE = 64
 EPOCHS = 20
 IMAGE_SHAPE = (224, 224, 3)
 
-SHOW_HISTORY = True
+SAVE_HISTORY = True
 SAVE_MODEL = True
+SAVE_PATH = 'trained_model'
 
 def get_trained_model(X_train, y_train):
     model = MyModel()
@@ -35,13 +36,13 @@ def main():
     model, history = get_trained_model(X_train, y_train)
 
     if SAVE_MODEL:
-        model.save('trained_model', save_format = 'tf')
+        model.save(SAVE_PATH, save_format = 'tf')
 
-    # Save history
-    df = pd.DataFrame(history.history)
-    csv_file = 'history.csv'
-    with open(csv_file, mode = 'w') as f:
-        df.to_csv(f)
+    if SAVE_HISTORY:
+        df = pd.DataFrame(history.history)
+        csv_file = 'history.csv'
+        with open(csv_file, mode = 'w') as f:
+            df.to_csv(f)
 
     return
 
