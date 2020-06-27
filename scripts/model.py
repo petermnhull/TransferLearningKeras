@@ -4,27 +4,30 @@ from keras.applications import MobileNet
 from keras.layers import Dense, GlobalAveragePooling2D, Dropout
 import io
 
-from myconfig import NUM_CLASSES
+from myconfig import NUM_CLASSES, IMAGE_SHAPE
 
 class MyModel(tf.keras.Model):
     def __init__(self):
         super(MyModel, self).__init__()
         self.n_classes = NUM_CLASSES
-        self.mobilenet = MobileNet(weights = 'imagenet', include_top = False)
-        self.dropout = Dropout(0.65)
+        self.mobilenet = MobileNet(weights = 'imagenet', include_top = False, input_shape = IMAGE_SHAPE)
+        self.dropout = Dropout(0.5)
         self.pool = GlobalAveragePooling2D()
         self.dense1 = Dense(1024, activation = 'relu')
         self.dense2 = Dense(512, activation = 'relu')
+        self.dense3 = Dense(256, activation = 'relu')
         self.out = Dense(self.n_classes, activation = 'softmax')
 
     def call(self, inputs, training = False):
         x = self.mobilenet(inputs)
         x = self.pool(x)
         x = self.dense1(x)
-        x = self.dropout(x, training = training)
-        x = self.dense1(x)
-        x = self.dropout(x, training = training)
+        if training:
+            x = self.dropout(x, training = training)
         x = self.dense2(x)
+        if training:
+            x = self.dropout(x, training = training)
+        x = self.dense3(x)
         x = self.out(x)
         return x
 
