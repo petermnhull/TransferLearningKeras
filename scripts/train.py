@@ -4,6 +4,7 @@ from model import MyModel
 from keras.optimizers import Adam
 import pandas as pd
 from data import load_data
+from keras.utils.np.utils import to_categorical
 
 from myconfig import *
 
@@ -11,10 +12,10 @@ def get_trained_model(X_train, y_train):
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
     model.freeze_weights()
-    model.compile(optimizer = 'Adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+    model.compile(optimizer = 'Adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
     history = model.fit(
         X_train,
-        y_train,
+        to_categorical(y_train),
         batch_size = BATCH_SIZE,
         steps_per_epoch = len(X_train) / BATCH_SIZE,
         epochs = EPOCHS,
