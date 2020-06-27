@@ -28,20 +28,22 @@ def get_data():
                     labels.append(i)
                 print('Done: ', path)
 
+        # Arrays
+        images = np.asarray(images, dtype = np.float32) / 255
+        labels = np.asarray(labels, dtype = np.int32)
         # Shuffle data
         if SHUFFLE:
             images, labels = shuffle(images, labels)
-
         # Export arrays to file
-        np.save(dataset, np.asarray(images, dtype = np.float32))
-        np.save(dataset + '_labels', np.asarray(labels, dtype = np.int32))
+        np.save(dataset, images)
+        np.save(dataset + '_labels', labels)
 
     return
 
 def load_data():
-    X_train = np.load(PATH_TRAIN + '.npy') / 255
+    X_train = np.load(PATH_TRAIN + '.npy')
     y_train = np.load(PATH_TRAIN + '_labels.npy')
-    X_test = np.load(PATH_TEST + '.npy') / 255
+    X_test = np.load(PATH_TEST + '.npy')
     y_test = np.load(PATH_TEST + '_labels.npy')
     return X_train, y_train, X_test, y_test
 
