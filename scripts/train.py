@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
-from keras.optimizers import Adam
+from keras.optimizers import SGD
 from keras.utils import to_categorical
 from model import MyModel
 import numpy as np
@@ -26,12 +26,15 @@ config = tf.compat.v1.ConfigProto(
 session = tf.compat.v1.Session(config = config)
 tf.compat.v1.keras.backend.set_session(session)
 
-def get_trained_model(X_train, y_train, epochs = 10, val_split = 0.33):
+def get_model():
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
     model.freeze_weights()
-    model.compile(optimizer = 'Adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+    sgd = SGD(lr = 0.01, momentum = 0, nesterov = False)
+    model.compile(optimizer = sgd, loss = 'categorical_crossentropy', metrics = ['accuracy'])
+    return model
 
+def get_trained_model(model, X_train, y_train, epochs = 30, val_split = 0.33):
     train_steps_per_epoch = np.ceil(((len(X_train) * (1 - val_split)) / BATCH_SIZE) - 1)
     val_steps_per_epoch = np.ceil(((len(X_train) * val_split) / BATCH_SIZE) - 1)
 
@@ -50,17 +53,15 @@ def get_trained_model(X_train, y_train, epochs = 10, val_split = 0.33):
 
 def main():
     X_train, y_train, _, _ = load_data()
-    model, history = get_trained_model(X_train, y_train)
-
+    model = get_model()
+    model, history = get_trained_model(model, X_train, y_train)
     if SAVE_MODEL:
         model.save(PATH_MODEL, save_format = 'tf')
-
     if SAVE_HISTORY:
         df = pd.DataFrame(history.history)
         csv_file = 'history.csv'
         with open(csv_file, mode = 'w') as f:
             df.to_csv(f)
-
     return
 
 if __name__ == "__main__":
