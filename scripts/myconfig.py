@@ -7,6 +7,7 @@ SAVE_HISTORY = True
 SAVE_MODEL = True
 SAVE_REPORT = True
 PRINT_REPORT = True
+SHUFFLE = False
 
 # Paths
 PATH_MODEL = 'trained_model'

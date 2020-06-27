@@ -3,7 +3,7 @@ import numpy as np
 from skimage.io import imread
 from pathlib import Path
 import cv2
-from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST, PATH_DATA
+from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST, PATH_DATA, SHUFFLE
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -28,6 +28,9 @@ def get_data():
                     labels.append(i)
                 print('Done: ', path)
 
+        if SHUFFLE:
+            images, labels = shuffle(images, labels)
+
         # Export arrays to file
         np.save(dataset, np.asarray(images, dtype = np.float32))
         np.save(dataset + '_labels', np.asarray(labels, dtype = np.int32))
@@ -40,6 +43,11 @@ def load_data():
     X_test = np.load(PATH_TEST + '.npy') / 255
     y_test = np.load(PATH_TEST + '_labels.npy')
     return X_train, y_train, X_test, y_test
+
+def shuffle(images, labels):
+    assert len(images) == len(labels)
+    p = np.random.permutation(len(images))
+    return images[p], labels[p]
 
 def main():
     get_data()
