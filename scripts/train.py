@@ -37,7 +37,7 @@ def get_trained_model(X_train, y_train, epochs = 5, val_split = 0.33):
 
     history = model.fit(
         X_train,
-        to_categorical(y_train, 2),
+        to_categorical(y_train, NUM_CLASSES),
         batch_size = BATCH_SIZE,
         steps_per_epoch = train_steps_per_epoch,
         epochs = epochs,
