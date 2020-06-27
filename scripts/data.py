@@ -3,7 +3,7 @@ import numpy as np
 from skimage.io import imread
 from pathlib import Path
 import cv2
-from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST, PATH_DATA, SHUFFLE
+from myconfig import *
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -28,6 +28,7 @@ def get_data():
                     labels.append(i)
                 print('Done: ', path)
 
+        # Shuffle data
         if SHUFFLE:
             images, labels = shuffle(images, labels)
 

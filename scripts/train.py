@@ -22,7 +22,7 @@ config = tf.compat.v1.ConfigProto(
         }
     )
 
-#Create the session
+# Create the session
 session = tf.compat.v1.Session(config = config)
 tf.compat.v1.keras.backend.set_session(session)
 
@@ -37,7 +37,6 @@ def get_model():
 def get_trained_model(model, X_train, y_train, epochs = 30, val_split = 0.33):
     train_steps_per_epoch = np.ceil(((len(X_train) * (1 - val_split)) / BATCH_SIZE) - 1)
     val_steps_per_epoch = np.ceil(((len(X_train) * val_split) / BATCH_SIZE) - 1)
-
     history = model.fit(
         X_train,
         to_categorical(y_train, NUM_CLASSES),
@@ -48,7 +47,6 @@ def get_trained_model(model, X_train, y_train, epochs = 30, val_split = 0.33):
         validation_steps = val_steps_per_epoch,
         verbose = 1
         )
-
     return model, history
 
 def main():

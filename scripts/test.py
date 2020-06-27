@@ -5,7 +5,7 @@ import pandas as pd
 from data import load_data
 from keras.utils import to_categorical
 from sklearn.metrics import classification_report
-from myconfig import BATCH_SIZE, PATH_MODEL, NUM_CLASSES, CLASS_NAMES, PATH_TEST_REPORT, PRINT_REPORT, SAVE_REPORT
+from myconfig import *
 
 def test_model(model, X_test, y_test):
     y_pred = model.predict(
