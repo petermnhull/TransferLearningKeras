@@ -23,7 +23,7 @@ def get_data():
                 # Process image
                 image = imread(path)
                 image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]), IMAGE_SHAPE[2])
-                if image.shape == (IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]):
+                if image.shape == IMAGE_SHAPE:
                     images.append(image)
                     labels.append(i)
                 print('Done: ', path)
