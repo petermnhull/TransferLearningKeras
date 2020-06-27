@@ -3,8 +3,10 @@ from keras.models import load_model
 import numpy as np
 from data import load_data
 
+from myconfig import *
+
 def test_model(model, X_test, y_test):
-    scores = model.evaluate(X_test, y_test)
+    scores = model.evaluate(X_test, y_test, batch_size = BATCH_SIZE)
     return scores
 
 def main():

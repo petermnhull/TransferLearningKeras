@@ -1,21 +1,14 @@
 import tensorflow as tf
+from tensorflow import keras
 from model import MyModel
 from keras.optimizers import Adam
 import pandas as pd
-import os
 from data import load_data
-from keras import backend as K
 
-K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads = 2, inter_op_parallelism_threads = 2)))
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+from myconfig import *
 
-BATCH_SIZE = 128
-EPOCHS = 20
-IMAGE_SHAPE = (224, 224, 3)
-
-SAVE_HISTORY = True
-SAVE_MODEL = True
-SAVE_PATH = 'trained_model'
+# Set warning level
+TF_CPP_MIN_LOG_LEVEL = 5
 
 def get_trained_model(X_train, y_train):
     model = MyModel()

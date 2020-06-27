@@ -4,13 +4,7 @@ from skimage.io import imread
 from pathlib import Path
 import cv2
 
-dir = os.path.dirname(__file__)
-PATH_TRAIN = 'training_set'
-PATH_TEST = 'test_set'
-
-NUM_CLASSES = 2
-IMAGE_SHAPE = (224, 224, 3)
-CLASS_NAMES = ['dogs', 'cats']
+from myconfig import *
 
 def get_data():
     for dataset in [PATH_TRAIN, PATH_TEST]:
