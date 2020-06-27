@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from myconfig import PATH_HISTORY
+
 def plot_history(df):
     # Accuracy
     plt.figure(figsize = (10, 5))
@@ -24,7 +26,7 @@ def plot_history(df):
     return
 
 def main():
-    df = pd.read_csv("history.csv")
+    df = pd.read_csv(PATH_HISTORY)
     plot_history(df)
     return
 

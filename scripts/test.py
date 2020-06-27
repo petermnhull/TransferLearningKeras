@@ -3,7 +3,7 @@ from keras.models import load_model
 import numpy as np
 from data import load_data
 from keras.utils import to_categorical
-from myconfig import BATCH_SIZE, SAVE_PATH
+from myconfig import BATCH_SIZE, PATH_MODEL
 
 def test_model(model, X_test, y_test):
     scores = model.evaluate(
@@ -14,7 +14,7 @@ def test_model(model, X_test, y_test):
     return scores
 
 def main():
-    model = load_model(SAVE_PATH)
+    model = load_model(PATH_MODEL)
     _, _, X_test, y_test = load_data()
     scores = test_model(model, X_test, y_test)
     print(scores)

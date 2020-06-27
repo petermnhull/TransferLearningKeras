@@ -53,7 +53,7 @@ def main():
     model, history = get_trained_model(X_train, y_train)
 
     if SAVE_MODEL:
-        model.save(SAVE_PATH, save_format = 'tf')
+        model.save(PATH_MODEL, save_format = 'tf')
 
     if SAVE_HISTORY:
         df = pd.DataFrame(history.history)

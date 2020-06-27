@@ -5,6 +5,8 @@ CLASS_NAMES = ['dogs', 'cats']
 NUM_CLASSES = len(CLASS_NAMES)
 SAVE_HISTORY = True
 SAVE_MODEL = True
-SAVE_PATH = 'trained_model'
+
+PATH_MODEL = 'trained_model'
+PATH_HISTORY = 'history.csv'
 PATH_TRAIN = 'training_set'
 PATH_TEST = 'test_set'
