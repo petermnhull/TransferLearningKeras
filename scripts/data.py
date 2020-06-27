@@ -3,8 +3,10 @@ import numpy as np
 from skimage.io import imread
 from pathlib import Path
 import cv2
+from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST
 
-from myconfig import dir, CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST
+# Directory
+dir = os.path.dirname(__file__)
 
 def get_data():
     for dataset in [PATH_TRAIN, PATH_TEST]:

@@ -2,17 +2,22 @@ import tensorflow as tf
 from keras.models import load_model
 import numpy as np
 from data import load_data
-
-from myconfig import *
+from keras.utils import to_categorical
+from myconfig import BATCH_SIZE, SAVE_PATH
 
 def test_model(model, X_test, y_test):
-    scores = model.evaluate(X_test, y_test, batch_size = BATCH_SIZE)
+    scores = model.evaluate(
+        X_test,
+        to_categorical(y_test, 2),
+        batch_size = BATCH_SIZE
+        )
     return scores
 
 def main():
-    model = load_model('trained_model')
+    model = load_model(SAVE_PATH)
     _, _, X_test, y_test = load_data()
     scores = test_model(model, X_test, y_test)
+    print(scores)
     return
 
 if __name__ == "__main__":

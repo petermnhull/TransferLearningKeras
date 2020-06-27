@@ -1,27 +1,51 @@
 import tensorflow as tf
 from tensorflow import keras
-from model import MyModel
 from keras.optimizers import Adam
+from keras.utils import to_categorical
+from model import MyModel
+import numpy as np
 import pandas as pd
 from data import load_data
-from keras.utils.np.utils import to_categorical
-
 from myconfig import *
 
-def get_trained_model(X_train, y_train):
+# Backend
+tf.keras.backend.set_floatx('float32')
+
+# Set the configuration
+config = tf.compat.v1.ConfigProto(
+    intra_op_parallelism_threads = 3,
+    inter_op_parallelism_threads = 2,
+    allow_soft_placement = True,
+    device_count = {
+        'CPU': 1,
+        'GPU' : 0
+        }
+    )
+
+#Create the session
+session = tf.compat.v1.Session(config = config)
+tf.compat.v1.keras.backend.set_session(session)
+
+def get_trained_model(X_train, y_train, epochs = 5, val_split = 0.33):
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
     model.freeze_weights()
     model.compile(optimizer = 'Adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+
+    train_steps_per_epoch = np.ceil(((len(X_train) * (1 - val_split)) / BATCH_SIZE) - 1)
+    val_steps_per_epoch = np.ceil(((len(X_train) * val_split) / BATCH_SIZE) - 1)
+
     history = model.fit(
         X_train,
-        to_categorical(y_train),
+        to_categorical(y_train, 2),
         batch_size = BATCH_SIZE,
-        steps_per_epoch = len(X_train) / BATCH_SIZE,
-        epochs = EPOCHS,
-        validation_split = 0.33,
+        steps_per_epoch = train_steps_per_epoch,
+        epochs = epochs,
+        validation_split = val_split,
+        validation_steps = val_steps_per_epoch,
         verbose = 1
         )
+
     return model, history
 
 def main():
