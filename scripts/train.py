@@ -5,7 +5,8 @@ import pandas as pd
 import os
 from data import load_data
 from keras import backend as K
-K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads = 2, inter_op_parallelism_threads = 2))
+
+K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads = 2, inter_op_parallelism_threads = 2)))
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 BATCH_SIZE = 128
@@ -28,7 +29,7 @@ def get_trained_model(X_train, y_train):
         steps_per_epoch = len(X_train) / BATCH_SIZE,
         epochs = EPOCHS,
         validation_split = 0.33,
-        verbose = 2
+        verbose = 3
         )
     return model, history
 
