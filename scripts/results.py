@@ -6,8 +6,8 @@ from myconfig import PATH_HISTORY
 def plot_history(df):
     # Accuracy
     plt.figure(figsize = (10, 10))
-    plt.plot(df['accuracy'])
-    plt.plot(df['val_accuracy'])
+    plt.plot(df['accuracy'], '-o', alpha = 0.8)
+    plt.plot(df['val_accuracy'], '-o', alpha = 0.8)
     plt.title('Model Accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
@@ -16,8 +16,8 @@ def plot_history(df):
 
     # Loss
     plt.figure(figsize = (10, 10))
-    plt.plot(df['loss'])
-    plt.plot(df['val_loss'])
+    plt.plot(df['loss'], '-o', alpha = 0.8)
+    plt.plot(df['val_loss'], '-o', alpha = 0.8)
     plt.title('Model Loss')
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
