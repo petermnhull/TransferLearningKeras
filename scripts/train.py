@@ -26,7 +26,7 @@ config = tf.compat.v1.ConfigProto(
 session = tf.compat.v1.Session(config = config)
 tf.compat.v1.keras.backend.set_session(session)
 
-def get_trained_model(X_train, y_train, epochs = 5, val_split = 0.33):
+def get_trained_model(X_train, y_train, epochs = 10, val_split = 0.33):
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
     model.freeze_weights()
