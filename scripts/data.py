@@ -3,7 +3,9 @@ import numpy as np
 from skimage.io import imread
 from pathlib import Path
 import cv2
-from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST
+from myconfig import CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST, PATH_DATA
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 # Directory
 dir = os.path.dirname(__file__)
@@ -15,16 +17,15 @@ def get_data():
         labels = []
         for i in range(len(CLASS_NAMES)):
             # Get paths
-            path = os.path.join(dir, 'data', dataset, CLASS_NAMES[i])
+            path = os.path.join(dir, PATH_DATA, dataset, CLASS_NAMES[i])
             paths = Path(path).glob('**/*.jpg')
             for path in paths:
                 # Process image
                 image = imread(path)
                 image = cv2.resize(image, (IMAGE_SHAPE[0], IMAGE_SHAPE[1]), IMAGE_SHAPE[2])
-                images.append(image)
-                # Process label
-                labels.append(i)
-
+                if image.shape == (IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]):
+                    images.append(image)
+                    labels.append(i)
                 print('Done: ', path)
 
         # Export arrays to file

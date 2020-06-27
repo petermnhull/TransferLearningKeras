@@ -17,7 +17,7 @@ config = tf.compat.v1.ConfigProto(
     inter_op_parallelism_threads = 2,
     allow_soft_placement = True,
     device_count = {
-        'CPU': 1,
+        'CPU' : 1,
         'GPU' : 0
         }
     )
