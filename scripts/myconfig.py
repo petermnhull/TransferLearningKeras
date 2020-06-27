@@ -2,6 +2,9 @@ import os
 import tensorflow as tf
 from tensorflow import keras
 
+# Backend
+tf.keras.backend.set_floatx('float32')
+
 # Directory
 dir = os.path.dirname(__file__)
 

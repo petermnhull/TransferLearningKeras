@@ -7,9 +7,6 @@ from data import load_data
 
 from myconfig import *
 
-# Set warning level
-TF_CPP_MIN_LOG_LEVEL = 5
-
 def get_trained_model(X_train, y_train):
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
@@ -22,7 +19,7 @@ def get_trained_model(X_train, y_train):
         steps_per_epoch = len(X_train) / BATCH_SIZE,
         epochs = EPOCHS,
         validation_split = 0.33,
-        verbose = 3
+        verbose = 1
         )
     return model, history
 

@@ -4,7 +4,7 @@ from skimage.io import imread
 from pathlib import Path
 import cv2
 
-from myconfig import *
+from myconfig import dir, CLASS_NAMES, IMAGE_SHAPE, PATH_TRAIN, PATH_TEST
 
 def get_data():
     for dataset in [PATH_TRAIN, PATH_TEST]:
@@ -26,8 +26,8 @@ def get_data():
                 print('Done: ', path)
 
         # Export arrays to file
-        np.save(dataset, images)
-        np.save(dataset + '_labels', labels)
+        np.save(dataset, np.asarray(images, dtype = np.float32))
+        np.save(dataset + '_labels', np.asarray(labels, dtype = np.int32))
 
     return
 

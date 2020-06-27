@@ -4,10 +4,12 @@ from keras.applications import MobileNet
 from keras.layers import Dense, GlobalAveragePooling2D, Dropout
 import io
 
+from myconfig import NUM_CLASSES
+
 class MyModel(tf.keras.Model):
     def __init__(self):
         super(MyModel, self).__init__()
-        self.n_classes = 2
+        self.n_classes = NUM_CLASSES
         self.mobilenet = MobileNet(weights = 'imagenet', include_top = False)
         self.pool = GlobalAveragePooling2D()
         self.dense1 = Dense(1024, activation = 'relu')
