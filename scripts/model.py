@@ -15,12 +15,11 @@ class MyModel(tf.keras.Model):
         self.out = Dense(self.n_classes, activation = 'softmax')
         self.dropout = Dropout(0.5)
 
-    def call(self, inputs, training = None):
+    def call(self, inputs, training = False):
         x = self.mobilenet(inputs)
         x = self.pool(x)
         x = self.dense1(x)
-        if training:
-            x = self.dropout(x, training = training)
+        x = self.dropout(x, training = training)
         x = self.dense1(x)
         x = self.dense2(x)
         x = self.out(x)
