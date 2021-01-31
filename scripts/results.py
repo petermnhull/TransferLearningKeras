@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from myconfig import PATH_HISTORY
+from myconfig import PATH_ACCURACY, PATH_LOSS, PATH_HISTORY
 
 def plot_history(df):
     # Accuracy
@@ -12,7 +12,7 @@ def plot_history(df):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc = 'upper left')
-    plt.savefig('accuracy.png', bbox_inches = 'tight')
+    plt.savefig(PATH_ACCURACY, bbox_inches = 'tight')
 
     # Loss
     plt.figure(figsize = (10, 10))
@@ -22,7 +22,7 @@ def plot_history(df):
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Validation'], loc = 'upper left')
-    plt.savefig('loss.png', bbox_inches = 'tight')
+    plt.savefig(PATH_LOSS, bbox_inches = 'tight')
     return
 
 def main():
