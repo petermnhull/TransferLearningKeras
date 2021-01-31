@@ -11,9 +11,9 @@ class MyModel(tf.keras.Model):
         super(MyModel, self).__init__()
         self.n_classes = NUM_CLASSES
         self.mobilenet = MobileNet(weights = 'imagenet', include_top = False, input_shape = IMAGE_SHAPE)
-        self.dropout = Dropout(0.5)
         self.pool = GlobalAveragePooling2D()
         self.dense1 = Dense(1024, activation = 'relu')
+        self.dropout = Dropout(0.5)
         self.dense2 = Dense(512, activation = 'relu')
         self.dense3 = Dense(256, activation = 'relu')
         self.out = Dense(self.n_classes, activation = 'softmax')
@@ -25,8 +25,6 @@ class MyModel(tf.keras.Model):
         if training:
             x = self.dropout(x, training = training)
         x = self.dense2(x)
-        if training:
-            x = self.dropout(x, training = training)
         x = self.dense3(x)
         x = self.out(x)
         return x

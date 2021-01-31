@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from data import load_data
 from myconfig import *
+from time import gmtime, strftime
 
 # Backend
 tf.keras.backend.set_floatx('float32')
@@ -30,7 +31,7 @@ def get_model():
     model = MyModel()
     model.build((1, IMAGE_SHAPE[0], IMAGE_SHAPE[1], IMAGE_SHAPE[2]))
     model.freeze_weights()
-    sgd = SGD(lr = 0.01, momentum = 0, nesterov = False)
+    sgd = SGD(lr = 0.001, momentum = 0.5, nesterov = False)
     model.compile(optimizer = sgd, loss = 'categorical_crossentropy', metrics = ['accuracy'])
     return model
 
@@ -57,7 +58,7 @@ def main():
         model.save(PATH_MODEL, save_format = 'tf')
     if SAVE_HISTORY:
         df = pd.DataFrame(history.history)
-        csv_file = 'history.csv'
+        csv_file = PATH_HISTORY
         with open(csv_file, mode = 'w') as f:
             df.to_csv(f)
     return
